@@ -1,9 +1,9 @@
-# 🎮 Cookie Cats Mobile Game: A/B Testing Analysis📖 
+# Cookie Cats Mobile Game: A/B Testing Analysis
 项目背景 (Background)Cookie Cats 是一款经典的“三连棋”式（Match-3）手机益智游戏。随着玩家通过关卡，游戏会设置“障碍（Gates）”，强制玩家等待一段时间或进行内购才能继续游戏。这不仅是为了盈利，也是为了给玩家提供休息时间，以防止产生厌倦感。
 本次 A/B 测试的核心问题：将游戏中的第一个“障碍”从 第30关 (Gate 30) 移到 第40关 (Gate 40)，会对玩家的游戏时长和留存率产生什么影响？
 本项目通过分析 A/B 测试数据，运用统计学方法评估这一变动是否带来了显著的业务指标提升。
 
-# 📂 数据集说明 (Dataset)数据来源于 cookie_cats.txt，包含 90,189 名玩家的数据。
+# 数据集说明 (Dataset)数据来源于 cookie_cats.txt，包含 90,189 名玩家的数据。
       字  段            |                          描述
       userid            |                   玩家的唯一标识符
       version           |     实验分组：gate_30 (对照组) 或 gate_40 (实验组)
@@ -11,18 +11,25 @@
       retention_1       |   次日留存：玩家在安装后第1天是否再次登录 (True/False)
       retention_7       |   7日留存：玩家在安装后第7天是否再次登录 (True/False)
 
-# 🛠️ 分析流程与方法 (Methodology)本项目采用 Python 进行完整的数据清洗与统计推断，主要步骤如下：
-1. 数据预处理完整性检查：确认无缺失值，无重复用户 ID。异常值处理：发现并剔除了一名 sum_gamerounds 高达 49,854 的极端异常用户，避免拉偏均值。
-2. 实验设计与样本量计算 (Sample Size Calculation)在进行检验前，基于统计功效（Power = 0.8）和显著性水平（Alpha = 0.05）计算理论所需样本量，确保实验结果的可靠性。均值类指标：设定 MDE (最小可检测效应) 为 5 次游戏回合。比率类指标：设定 MDE 为相对提升 2% (次日留存) 和 5% (7日留存)。结论：实际样本量（每组约 4.5w 人）足以支持上述效应的检测。
-3. 假设检验 (Hypothesis Testing)针对三个核心指标进行了单尾检验（H1: 实验组指标 > 对照组指标）：
-  1）游戏回合数 (Mean Metric)检验方法：Levene's Test (方差齐性检验) + T-test / Z-test。结果：P-value $\approx$ 1.0，未能拒绝原假设。
-  2）1天 & 7天留存率 (Proportion Metric)检验方法：Proportions Z-test。结果：未能拒绝原假设，且实验组的留存率在数值上略低于对照组。
+# 分析流程与方法 (Methodology)
+本项目采用 Python 进行完整的数据清洗与统计推断，主要步骤如下：
+1. **数据预处理完整性检查：**确认无缺失值，无重复用户 ID。
+   **异常值处理：**发现并剔除了一名 sum_gamerounds 高达 49,854 的极端异常用户，避免拉偏均值。
 
-# 📊 实验结论 (Results & Conclusion)经过严格的统计检验，得出以下结论：
+2. 实验设计与样本量计算 (Sample Size Calculation)
+   在进行检验前，基于统计功效（Power = 0.8）和显著性水平（Alpha = 0.05）计算理论所需样本量，确保实验结果的可靠性。
+   均值类指标：设定 MDE (最小可检测效应) 为 5 次游戏回合。
+   比率类指标：设定 MDE 为相对提升 2% (次日留存) 和 5% (7日留存)。**结论：**实际样本量（每组约 4.5w 人）足以支持上述效应的检测。
+
+3. 假设检验 (Hypothesis Testing)针对三个核心指标进行了单尾检验（H1: 实验组指标 > 对照组指标）：
+  1）游戏回合数 (Mean Metric)检验方法：Levene's Test (方差齐性检验) + T-test / Z-test。**结果：**P-value $\approx$ 1.0，未能拒绝原假设。
+  2）1天 & 7天留存率 (Proportion Metric)检验方法：Proportions Z-test。**结果：**未能拒绝原假设，且实验组的留存率在数值上略低于对照组。
+
+# 实验结论 (Results & Conclusion)经过严格的统计检验，得出以下结论：
 游戏时长：将障碍移至 40 关并未显著增加玩家的平均游戏回合数。
 玩家留存：无论是次日留存还是 7 日留存，gate_40 版本均未表现出优于 gate_30 的特征。
 实际上，数据暗示推迟障碍出现（让玩家玩得更久才遇到挫折）并没有提高玩家的粘性。
 
 # 业务建议：基于当前数据，不建议将障碍从 30 关移至 40 关。建议维持当前设置，或尝试其他关卡位置（如更早的关卡）进行新的测试。
 
-# 💻 技术栈 (Tech Stack)Python 3.xPandas & Numpy: 数据处理与清洗Statsmodels & Scipy: 样本量计算、正态分布模拟、Z检验、T检验Matplotlib: (可选) 数据可视化
+# 技术栈 (Tech Stack)Python 3.xPandas & Numpy: 数据处理与清洗Statsmodels & Scipy: 样本量计算、正态分布模拟、Z检验、T检验Matplotlib: (可选) 数据可视化
