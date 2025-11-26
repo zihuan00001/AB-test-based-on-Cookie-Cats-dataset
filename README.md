@@ -1,7 +1,15 @@
 # 🎮 Cookie Cats Mobile Game: A/B Testing Analysis📖 
 项目背景 (Background)Cookie Cats 是一款经典的“三连棋”式（Match-3）手机益智游戏。随着玩家通过关卡，游戏会设置“障碍（Gates）”，强制玩家等待一段时间或进行内购才能继续游戏。这不仅是为了盈利，也是为了给玩家提供休息时间，以防止产生厌倦感。
 本次 A/B 测试的核心问题：将游戏中的第一个“障碍”从 第30关 (Gate 30) 移到 第40关 (Gate 40)，会对玩家的游戏时长和留存率产生什么影响？
-本项目通过分析 A/B 测试数据，运用统计学方法评估这一变动是否带来了显著的业务指标提升。📂 数据集说明 (Dataset)数据来源于 cookie_cats.txt，包含 90,189 名玩家的数据。字段名描述userid玩家的唯一标识符version实验分组：gate_30 (对照组) 或 gate_40 (实验组)sum_gamerounds玩家在安装后前14天内进行的游戏回合总数retention_1次日留存：玩家在安装后第1天是否再次登录 (True/False)retention_77日留存：玩家在安装后第7天是否再次登录 (True/False)
+本项目通过分析 A/B 测试数据，运用统计学方法评估这一变动是否带来了显著的业务指标提升。
+
+# 📂 数据集说明 (Dataset)数据来源于 cookie_cats.txt，包含 90,189 名玩家的数据。
+      字  段            |                          描述
+      userid            |                   玩家的唯一标识符
+      version           |     实验分组：gate_30 (对照组) 或 gate_40 (实验组)
+      sum_gamerounds    |         玩家在安装后前14天内进行的游戏回合总数
+      retention_1       |   次日留存：玩家在安装后第1天是否再次登录 (True/False)
+      retention_7       |   7日留存：玩家在安装后第7天是否再次登录 (True/False)
 
 # 🛠️ 分析流程与方法 (Methodology)本项目采用 Python 进行完整的数据清洗与统计推断，主要步骤如下：
 1. 数据预处理完整性检查：确认无缺失值，无重复用户 ID。异常值处理：发现并剔除了一名 sum_gamerounds 高达 49,854 的极端异常用户，避免拉偏均值。
